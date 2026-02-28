@@ -11,7 +11,7 @@ import (
 // Config holds all poller configuration.
 type Config struct {
 	PollerToken    string `json:"poller_token"`    // AP_POLLER_TOKEN (required)
-	APIURL         string `json:"api_url"`         // AP_API_URL (required)
+	APIURL         string `json:"api_url"`         // AP_API_URL (default: https://api.alertpriority.com)
 	PollInterval   int    `json:"poll_interval"`   // AP_POLL_INTERVAL — seconds between monitor fetches (default: 60)
 	MaxConcurrency int    `json:"max_concurrency"` // AP_MAX_CONCURRENCY — max concurrent checks (default: 50)
 	BatchSize      int    `json:"batch_size"`      // AP_BATCH_SIZE — max results per batch POST (default: 100)
@@ -24,6 +24,7 @@ type Config struct {
 // DefaultConfig returns a Config with default values.
 func DefaultConfig() *Config {
 	return &Config{
+		APIURL:         "https://api.alertpriority.com",
 		PollInterval:   60,
 		MaxConcurrency: 50,
 		BatchSize:      100,
@@ -91,9 +92,7 @@ func Load(configFile string) (*Config, error) {
 	if cfg.PollerToken == "" {
 		return nil, fmt.Errorf("AP_POLLER_TOKEN is required")
 	}
-	if cfg.APIURL == "" {
-		return nil, fmt.Errorf("AP_API_URL is required")
-	}
+	cfg.APIURL = strings.TrimRight(cfg.APIURL, "/")
 
 	return cfg, nil
 }

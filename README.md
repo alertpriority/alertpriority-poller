@@ -114,7 +114,7 @@ Or with a config file:
 | Variable | Required | Default | Description |
 |----------|----------|---------|-------------|
 | `AP_POLLER_TOKEN` | Yes | — | Token generated from your AlertPriority dashboard |
-| `AP_API_URL` | Yes | — | AlertPriority API URL |
+| `AP_API_URL` | No | `https://api.alertpriority.com` | AlertPriority API URL |
 | `AP_POLL_INTERVAL` | No | `60` | Seconds between monitor list fetches |
 | `AP_MAX_CONCURRENCY` | No | `50` | Max concurrent check goroutines |
 | `AP_BATCH_SIZE` | No | `100` | Max results per batch submission |
